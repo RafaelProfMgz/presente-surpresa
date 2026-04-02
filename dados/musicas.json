@@ -1,0 +1,41 @@
+{
+  "musicas": [
+    {
+      "id": "1",
+      "titulo": "Lover",
+      "artista": "Taylor Swift",
+      "url": "https://open.spotify.com/track/1BxfuPKGuaTgP7aM0frO2M",
+      "tipo": "spotify"
+    },
+    {
+      "id": "2",
+      "titulo": "Perfect",
+      "artista": "Ed Sheeran",
+      "url": "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMwbk",
+      "tipo": "spotify"
+    }
+  ],
+  "playlists": [
+    {
+      "id": "1",
+      "nome": "33 Resolutions Per Minute",
+      "url": "https://open.spotify.com/intl-pt/album/5CUFurrJe05hnz189d5mDK",
+      "tipo": "album",
+      "descricao": "A playlist que você adicionou para nosso presente especial"
+    },
+    {
+      "id": "2",
+      "titulo": "Playlist Polvo",
+      "url": "https://open.spotify.com/playlist/4KlJlTNO1TNQVgjTl24oSO",
+      "tipo": "album",
+      "descricao": "A playlist que você adicionou para nosso presente especial"
+    }
+  ],
+  "favoritas": [
+    {
+      "id": "1",
+      "tipo": "musica",
+      "data_adicionada": "2026-04-01"
+    }
+  ]
+}

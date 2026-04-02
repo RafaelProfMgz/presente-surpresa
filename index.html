@@ -1,0 +1,3013 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Um Presente Com Amor 💌</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&family=Quicksand:wght@300;400;500;600&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --rosa-claro: #fdecef;
+        --rosa-medio: #f7cfd8;
+        --rosa-forte: #d95d7a;
+        --rosa-escuro: #bb3f60;
+        --creme: #fffaf5;
+        --lavanda: #f3e6ec;
+        --amarelo-suave: #fff4dc;
+        --verde-menta: #eaf4ef;
+        --bege: #f7efe7;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Quicksand", sans-serif;
+        background-color: var(--creme);
+        color: #5d4037;
+        overflow-x: hidden;
+        cursor: auto;
+      }
+
+      /* ========== FLOATING DECORATIONS ========== */
+      .floating-elements {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .petal {
+        position: absolute;
+        top: -30px;
+        font-size: 1.2rem;
+        opacity: 0.5;
+        animation: fall linear infinite;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-30px) rotate(0deg) translateX(0px);
+          opacity: 0.6;
+        }
+        50% {
+          opacity: 0.4;
+        }
+        100% {
+          transform: translateY(100vh) rotate(360deg) translateX(80px);
+          opacity: 0;
+        }
+      }
+
+      /* ========== GIFT INTRO ========== */
+      .envelope-intro {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          145deg,
+          #f7e9ee 0%,
+          #f4e9f0 45%,
+          #f8f1e6 100%
+        );
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        transition:
+          opacity 0.9s ease,
+          transform 0.9s ease,
+          filter 0.9s ease;
+      }
+
+      .envelope-intro.hidden {
+        opacity: 0;
+        transform: scale(1.06);
+        filter: blur(8px);
+        pointer-events: none;
+      }
+
+      .gift-intro-icon {
+        font-size: 2.1rem;
+        color: var(--rosa-forte);
+        margin-bottom: 14px;
+        animation: bounce 2s ease infinite;
+      }
+
+      .gift-box {
+        position: relative;
+        width: 280px;
+        height: 220px;
+        cursor: pointer;
+        margin: 4px auto 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        transition: transform 0.35s ease;
+      }
+
+      .gift-box:hover {
+        transform: translateY(-4px) scale(1.02);
+      }
+
+      .gift-lid {
+        position: absolute;
+        top: 28px;
+        width: 220px;
+        height: 52px;
+        background: linear-gradient(160deg, #ea8eaa, #d95d7a);
+        border-radius: 12px;
+        box-shadow: 0 10px 16px rgba(217, 93, 122, 0.24);
+        z-index: 3;
+        transform-origin: 50% 90%;
+        transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .gift-lid::before,
+      .gift-lid::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 14px;
+        height: 14px;
+        border-radius: 12px 12px 0 12px;
+        background: #fff;
+        transform-origin: center;
+        opacity: 0.85;
+      }
+
+      .gift-lid::before {
+        transform: translate(-85%, -50%) rotate(-45deg);
+      }
+
+      .gift-lid::after {
+        transform: translate(-15%, -50%) rotate(45deg);
+      }
+
+      .gift-base {
+        position: absolute;
+        bottom: 24px;
+        width: 220px;
+        height: 130px;
+        background: linear-gradient(155deg, #f5c5d4, #efb4c7);
+        border-radius: 14px;
+        box-shadow: 0 14px 30px rgba(187, 63, 96, 0.2);
+        overflow: hidden;
+        z-index: 2;
+      }
+
+      .gift-ribbon-v,
+      .gift-ribbon-h {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .gift-ribbon-v {
+        width: 20px;
+        height: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .gift-ribbon-h {
+        width: 100%;
+        height: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .gift-glow {
+        position: absolute;
+        bottom: 75px;
+        width: 200px;
+        height: 110px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.86) 0%,
+          rgba(255, 255, 255, 0) 75%
+        );
+        opacity: 0;
+        transform: scale(0.75);
+        transition: all 0.75s ease;
+        z-index: 1;
+      }
+
+      .gift-message {
+        position: absolute;
+        bottom: 92px;
+        font-family: "Caveat", cursive;
+        font-size: 1.35rem;
+        color: var(--rosa-escuro);
+        opacity: 0;
+        transform: translateY(14px);
+        transition: all 0.75s ease;
+        z-index: 4;
+      }
+
+      .envelope-intro.opening .gift-lid {
+        transform: translateY(-42px) rotate(-15deg);
+      }
+
+      .envelope-intro.opening .gift-glow {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+
+      .envelope-intro.opening .gift-message {
+        opacity: 1;
+        transform: translateY(-2px);
+      }
+
+      .intro-text {
+        margin-top: 40px;
+        font-family: "Patrick Hand", cursive;
+        font-size: 1.3rem;
+        color: var(--rosa-forte);
+        animation: pulse 2s ease-in-out infinite;
+        text-align: center;
+        letter-spacing: 0.4px;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.6;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.03);
+        }
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* ========== MAIN CONTENT ========== */
+      .main-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ========== HERO SECTION ========== */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 40px 20px;
+        background: linear-gradient(
+          180deg,
+          var(--rosa-claro) 0%,
+          var(--creme) 100%
+        );
+        position: relative;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+          radial-gradient(
+            circle at 20% 30%,
+            rgba(248, 187, 208, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(232, 213, 245, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 50% 50%,
+            rgba(255, 249, 196, 0.2) 0%,
+            transparent 50%
+          );
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .kitty-hello {
+        font-size: 1.8rem;
+        margin-bottom: 14px;
+        color: var(--rosa-forte);
+        font-family: "Patrick Hand", cursive;
+        letter-spacing: 1px;
+      }
+
+      .hero h1 {
+        font-family: "Caveat", cursive;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        color: var(--rosa-forte);
+        margin-bottom: 15px;
+        line-height: 1.2;
+        text-shadow: 2px 2px 0px rgba(248, 187, 208, 0.5);
+      }
+
+      .hero .subtitle {
+        font-family: "Patrick Hand", cursive;
+        font-size: clamp(1.2rem, 3vw, 1.6rem);
+        color: #ad1457;
+        margin-bottom: 30px;
+        opacity: 0.8;
+      }
+
+      .scrapbook-frame {
+        display: inline-block;
+        background: white;
+        padding: 15px 15px 40px 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transform: rotate(-2deg);
+        margin: 20px 0;
+        max-width: 320px;
+        border-radius: 2px;
+        position: relative;
+      }
+
+      .scrapbook-frame::after {
+        content: "nós ♡";
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Caveat", cursive;
+        font-size: 1.2rem;
+        color: var(--rosa-forte);
+      }
+
+      .scrapbook-frame .photo-placeholder {
+        width: 280px;
+        height: 280px;
+        background: linear-gradient(135deg, var(--rosa-claro), var(--lavanda));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2px;
+        font-size: 4rem;
+      }
+
+      .photo-placeholder span {
+        font-family: "Caveat", cursive;
+        font-size: 1rem;
+        color: var(--rosa-forte);
+        margin-top: 10px;
+      }
+
+      .tape {
+        position: absolute;
+        width: 80px;
+        height: 25px;
+        background: rgba(255, 249, 196, 0.7);
+        border: 1px solid rgba(255, 235, 59, 0.3);
+        z-index: 2;
+      }
+
+      .tape-top-left {
+        top: -8px;
+        left: -10px;
+        transform: rotate(-15deg);
+      }
+
+      .tape-top-right {
+        top: -8px;
+        right: -10px;
+        transform: rotate(15deg);
+      }
+
+      /* ========== SCROLL INDICATOR ========== */
+      .scroll-indicator {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Patrick Hand", cursive;
+        color: var(--rosa-forte);
+        font-size: 1.1rem;
+        animation: floatUp 2s ease-in-out infinite;
+      }
+
+      @keyframes floatUp {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(-10px);
+        }
+      }
+
+      /* ========== SECTIONS GENERAL ========== */
+      section {
+        padding: 80px 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        font-family: "Caveat", cursive;
+        font-size: clamp(2rem, 5vw, 3rem);
+        color: var(--rosa-forte);
+        text-align: center;
+        margin-bottom: 40px;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "♡ ♡ ♡";
+        display: block;
+        font-size: 1.2rem;
+        margin-top: 5px;
+        opacity: 0.5;
+      }
+
+      /* ========== CARTA (LETTER) ========== */
+      .carta-section {
+        background: linear-gradient(
+          180deg,
+          var(--creme) 0%,
+          var(--amarelo-suave) 50%,
+          var(--creme) 100%
+        );
+      }
+
+      .carta {
+        background: white;
+        background-image: linear-gradient(transparent 94%, #f8bbd0 94%);
+        background-size: 100% 2.05em;
+        background-attachment: local;
+        padding: 40px 35px;
+        border-radius: 4px;
+        box-shadow:
+          0 4px 20px rgba(0, 0, 0, 0.06),
+          inset 0 0 80px rgba(252, 228, 236, 0.3);
+        font-family: "Caveat", cursive;
+        font-size: 1.3rem;
+        line-height: 2.05em;
+        color: #5d4037;
+        position: relative;
+        max-width: 650px;
+        margin: 0 auto;
+        transform: none;
+      }
+
+      .carta::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 35px;
+        width: 2px;
+        height: 100%;
+        background: rgba(240, 98, 146, 0.2);
+      }
+
+      .carta p {
+        margin-bottom: 0.05em;
+        padding-left: 12px;
+        display: block;
+        text-align: left;
+      }
+
+      .carta .assinatura {
+        text-align: right;
+        color: var(--rosa-forte);
+        font-size: 1.5rem;
+        margin-top: 1.5em;
+      }
+
+      /* ========== COISAS QUE AMO EM VOCÊ ========== */
+      .qualidades-section {
+        background: linear-gradient(
+          180deg,
+          var(--creme) 0%,
+          var(--rosa-claro) 50%,
+          var(--creme) 100%
+        );
+      }
+
+      .recortes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 25px;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .recorte {
+        background: white;
+        padding: 25px 20px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+        transform: rotate(var(--rotation, 0deg));
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .recorte:hover {
+        transform: rotate(0deg) scale(1.05);
+        box-shadow: 0 8px 30px rgba(233, 30, 99, 0.15);
+      }
+
+      .recorte::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--rosa-medio),
+          var(--lavanda),
+          var(--amarelo-suave)
+        );
+      }
+
+      .recorte .emoji {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .recorte h3 {
+        font-family: "Patrick Hand", cursive;
+        font-size: 1.15rem;
+        color: var(--rosa-forte);
+        margin-bottom: 8px;
+      }
+
+      .recorte p {
+        font-size: 0.9rem;
+        color: #8d6e63;
+        line-height: 1.5;
+      }
+
+      /* ========== LIVROS ========== */
+      .livros-section {
+        background: linear-gradient(
+          180deg,
+          var(--creme) 0%,
+          var(--verde-menta) 50%,
+          var(--creme) 100%
+        );
+      }
+
+      .bookshelf {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 8px;
+        padding: 30px 20px 20px;
+        background: linear-gradient(
+          180deg,
+          transparent 85%,
+          #d7ccc8 85%,
+          #bcaaa4 100%
+        );
+        border-radius: 8px;
+        max-width: 600px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+      }
+
+      .book {
+        width: 45px;
+        border-radius: 3px 6px 6px 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.55rem;
+        font-weight: 600;
+        color: white;
+        cursor: default;
+        transition: transform 0.3s ease;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        padding: 8px 4px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .book:hover {
+        transform: translateY(-15px);
+      }
+
+      .book::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 3px 0 0 3px;
+      }
+
+      .livros-text {
+        text-align: center;
+        font-family: "Patrick Hand", cursive;
+        font-size: 1.15rem;
+        color: #5d4037;
+        margin-top: 30px;
+        line-height: 1.8;
+      }
+
+      /* ========== PIQUENIQUE ========== */
+      .piquenique-section {
+        background: linear-gradient(
+          180deg,
+          var(--creme) 0%,
+          var(--amarelo-suave) 50%,
+          var(--creme) 100%
+        );
+      }
+
+      .picnic-scene {
+        text-align: center;
+        padding: 40px;
+        background: radial-gradient(
+          ellipse at center bottom,
+          rgba(139, 195, 74, 0.15) 0%,
+          transparent 70%
+        );
+        border-radius: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .picnic-blanket {
+        width: 280px;
+        height: 200px;
+        margin: 0 auto;
+        background: repeating-conic-gradient(#ffcdd2 0% 25%, #fff 0% 50%) 0 0 /
+          40px 40px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        position: relative;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .picnic-items {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .picnic-text {
+        font-family: "Caveat", cursive;
+        font-size: 1.4rem;
+        color: var(--rosa-forte);
+        margin-top: 25px;
+      }
+
+      .picnic-description {
+        font-family: "Patrick Hand", cursive;
+        font-size: 1.1rem;
+        color: #5d4037;
+        margin-top: 15px;
+        line-height: 1.8;
+      }
+
+      /* ========== CROCHÊ ========== */
+      .croche-section {
+        background: linear-gradient(
+          180deg,
+          var(--creme) 0%,
+          var(--lavanda) 50%,
+          var(--creme) 100%
+        );
+      }
+
+      .croche-content {
+        text-align: center;
+        max-width: 550px;
+        margin: 0 auto;
+      }
+
+      .yarn-ball {
+        font-size: 5rem;
+        margin-bottom: 20px;
+        display: inline-block;
+        animation: wobble 3s ease-in-out infinite;
+      }
+
+      @keyframes wobble {
+        0%,
+        100% {
+          transform: rotate(-5deg);
+        }
+        50% {
+          transform: rotate(5deg);
+        }
+      }
+
+      .croche-text {
+        font-family: "Caveat", cursive;
+        font-size: 1.4rem;
+        color: #5d4037;
+        line-height: 2;
+      }
+
+      .crochet-pattern {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 25px;
+        flex-wrap: wrap;
+      }
+
+      .stitch {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        transition: transform 0.3s ease;
+      }
+
+      .stitch:hover {
+        transform: scale(1.3);
+      }
+
+      /* ========== PROMESSAS (VALES) ========== */
+      .promessas-section {
+        background: linear-gradient(
+          180deg,
+          var(--creme) 0%,
+          var(--rosa-claro) 50%,
+          var(--creme) 100%
+        );
+      }
+
+      .vales-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .vale {
+        background: white;
+        border: 2px dashed var(--rosa-medio);
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        position: relative;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .vale:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(233, 30, 99, 0.12);
+      }
+
+      .vale::before {
+        content: "✂ - - - - - - - - - - - - - - - -";
+        position: absolute;
+        top: -12px;
+        left: 10px;
+        right: 10px;
+        font-size: 0.7rem;
+        color: var(--rosa-medio);
+        letter-spacing: 2px;
+      }
+
+      .vale .vale-emoji {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+
+      .vale h3 {
+        font-family: "Patrick Hand", cursive;
+        font-size: 1.2rem;
+        color: var(--rosa-forte);
+        margin-bottom: 5px;
+      }
+
+      .vale p {
+        font-size: 0.85rem;
+        color: #8d6e63;
+      }
+
+      .vale .validade {
+        font-family: "Caveat", cursive;
+        font-size: 0.8rem;
+        color: var(--rosa-forte);
+        margin-top: 10px;
+        opacity: 0.7;
+      }
+
+      /* ========== COUNTDOWN / SPECIAL ========== */
+      .special-section {
+        text-align: center;
+        padding: 100px 20px;
+        background: linear-gradient(
+          180deg,
+          var(--creme) 0%,
+          var(--lavanda) 30%,
+          var(--rosa-claro) 70%,
+          var(--creme) 100%
+        );
+      }
+
+      .special-section .big-heart {
+        font-size: 6rem;
+        animation: heartbeat 1.5s ease-in-out infinite;
+        display: inline-block;
+      }
+
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        15% {
+          transform: scale(1.15);
+        }
+        30% {
+          transform: scale(1);
+        }
+        45% {
+          transform: scale(1.1);
+        }
+      }
+
+      .special-section h2 {
+        font-family: "Caveat", cursive;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        color: var(--rosa-forte);
+        margin: 20px 0;
+      }
+
+      .special-section .message {
+        font-family: "Patrick Hand", cursive;
+        font-size: 1.3rem;
+        color: #5d4037;
+        max-width: 500px;
+        margin: 0 auto;
+        line-height: 1.8;
+      }
+
+      /* ========== FOOTER ========== */
+      .footer {
+        text-align: center;
+        padding: 40px 20px;
+        background: var(--rosa-claro);
+        font-family: "Caveat", cursive;
+        color: var(--rosa-forte);
+        font-size: 1.2rem;
+      }
+
+      .footer .kitty-row {
+        font-size: 1.8rem;
+        letter-spacing: 6px;
+        margin-bottom: 10px;
+      }
+
+      .romantic-divider {
+        width: min(640px, calc(100% - 40px));
+        margin: 24px auto;
+        text-align: center;
+        color: var(--rosa-forte);
+        opacity: 0.45;
+        font-family: "Caveat", cursive;
+        font-size: 1.6rem;
+        letter-spacing: 7px;
+        border-top: 1px solid rgba(217, 93, 122, 0.25);
+        border-bottom: 1px solid rgba(217, 93, 122, 0.18);
+        padding: 6px 0;
+      }
+
+      /* ========== ANIMATIONS ON SCROLL ========== */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ========== MUSIC PLAYER ========== */
+      .music-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid var(--rosa-medio);
+        font-size: 1.8rem;
+        cursor: pointer;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        transition:
+          transform 0.3s ease,
+          background 0.3s ease;
+      }
+
+      .music-toggle:hover {
+        transform: scale(1.1);
+        background: var(--rosa-claro);
+      }
+
+      .music-toggle.playing {
+        animation: pulse-music 1.2s ease-in-out infinite;
+      }
+
+      @keyframes pulse-music {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.08);
+        }
+      }
+
+      .music-overlay {
+        position: fixed;
+        bottom: 20px;
+        right: 90px;
+        background: white;
+        border: 2px solid var(--rosa-medio);
+        border-radius: 15px;
+        padding: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        z-index: 100;
+        max-width: 280px;
+        opacity: 0;
+        transform: scale(0.8) translateX(20px);
+        transform-origin: right center;
+        transition: all 0.3s ease;
+        pointer-events: none;
+      }
+
+      .music-overlay.visible {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+        pointer-events: all;
+      }
+
+      .music-overlay h4 {
+        font-family: "Patrick Hand", cursive;
+        color: var(--rosa-forte);
+        margin-bottom: 10px;
+        font-size: 1rem;
+      }
+
+      .music-overlay input,
+      .music-overlay button {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        border: 1px solid var(--rosa-medio);
+        border-radius: 8px;
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.85rem;
+      }
+
+      .music-overlay input {
+        background: var(--creme);
+        color: #5d4037;
+      }
+
+      .music-overlay input::placeholder {
+        color: #b0bec5;
+      }
+
+      .music-overlay button {
+        background: var(--rosa-claro);
+        color: var(--rosa-forte);
+        cursor: pointer;
+        border: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .music-overlay button:hover {
+        background: var(--rosa-medio);
+        transform: translateY(-2px);
+      }
+
+      .music-info {
+        font-size: 0.8rem;
+        color: #8d6e63;
+        margin-top: 10px;
+        text-align: center;
+        max-height: 60px;
+        overflow: hidden;
+      }
+
+      /* ========== MUSIC TABS ========== */
+      .music-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid var(--rosa-medio);
+      }
+
+      .tab-btn {
+        flex: 1;
+        padding: 8px 6px;
+        background: transparent;
+        border: none;
+        border-bottom: 3px solid transparent;
+        color: #8d6e63;
+        cursor: pointer;
+        font-size: 0.75rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-family: "Patrick Hand", cursive;
+      }
+
+      .tab-btn.active {
+        border-bottom-color: var(--rosa-forte);
+        color: var(--rosa-forte);
+      }
+
+      .tab-btn:hover {
+        color: var(--rosa-forte);
+      }
+
+      .tab-content {
+        display: none;
+        animation: fadeInTab 0.3s ease;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      @keyframes fadeInTab {
+        from {
+          opacity: 0;
+          transform: translateY(-5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ========== SPOTIFY EMBED & TRACKS ========== */
+      .spotify-embed-container {
+        margin: 12px 0;
+        max-height: 360px;
+        overflow-y: auto;
+        border-radius: 8px;
+        background: var(--creme);
+        padding: 8px;
+      }
+
+      .spotify-embed-container iframe {
+        width: 100%;
+        border: none;
+        border-radius: 6px;
+      }
+
+      .tracks-list {
+        margin: 12px 0;
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid var(--rosa-medio);
+        border-radius: 8px;
+        padding: 8px;
+        background: var(--creme);
+      }
+
+      .tracks-list h5 {
+        font-family: "Patrick Hand", cursive;
+        color: var(--rosa-forte);
+        margin: 0 0 8px 0;
+        font-size: 0.85rem;
+      }
+
+      .track-item {
+        padding: 6px;
+        margin: 4px 0;
+        background: white;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        color: #5d4037;
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .track-item:hover {
+        background: var(--rosa-claro);
+        border-left-color: var(--rosa-forte);
+        transform: translateX(2px);
+      }
+
+      .track-item.active {
+        background: var(--rosa-claro);
+        border-left-color: var(--rosa-forte);
+        font-weight: 600;
+      }
+
+      .playlist-info {
+        font-size: 0.8rem;
+        color: #8d6e63;
+        margin-top: 10px;
+        text-align: center;
+        max-height: 80px;
+        overflow: hidden;
+      }
+
+      /* ========== SAVED MUSIC/PLAYLISTS ========== */
+      .music-saved,
+      .playlist-quick-access {
+        margin-bottom: 8px;
+      }
+
+      .music-saved h5,
+      .playlist-quick-access h5 {
+        font-family: "Patrick Hand", cursive;
+        color: var(--rosa-forte);
+        margin: 0 0 6px 0;
+        font-size: 0.75rem;
+      }
+
+      .quick-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        max-height: 120px;
+        overflow-y: auto;
+      }
+
+      .quick-item {
+        background: var(--rosa-claro);
+        border-radius: 6px;
+        padding: 6px 8px;
+        font-size: 0.7rem;
+        color: #5d4037;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.2s ease;
+        border-left: 2px solid var(--rosa-forte);
+      }
+
+      .quick-item:hover {
+        background: var(--rosa-medio);
+        transform: translateX(2px);
+      }
+
+      .quick-item-name {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-right: 4px;
+      }
+
+      .quick-item-remove {
+        background: none;
+        border: none;
+        color: var(--rosa-forte);
+        cursor: pointer;
+        font-size: 0.7rem;
+        padding: 0;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+      }
+
+      .quick-item-remove:hover {
+        opacity: 1;
+      }
+
+      /* ========== MUSIC MANAGER ========== */
+      .music-manager-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 90px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid var(--rosa-medio);
+        font-size: 1.8rem;
+        cursor: pointer;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .music-manager-btn:hover {
+        transform: scale(1.1);
+        background: var(--rosa-claro);
+      }
+
+      .music-manager-modal {
+        position: fixed;
+        bottom: 0;
+        right: -500px;
+        width: 400px;
+        height: 100%;
+        background: white;
+        border-left: 2px solid var(--rosa-medio);
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+        z-index: 120;
+        transition: right 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .music-manager-modal.visible {
+        right: 0;
+      }
+
+      .music-manager-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .music-manager-header {
+        background: linear-gradient(
+          135deg,
+          var(--rosa-claro),
+          var(--rosa-medio)
+        );
+        padding: 15px;
+        border-bottom: 2px solid var(--rosa-medio);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .music-manager-header h3 {
+        font-family: "Caveat", cursive;
+        font-size: 1.5rem;
+        color: var(--rosa-forte);
+        margin: 0;
+      }
+
+      .close-manager {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--rosa-forte);
+        padding: 0;
+        transition: transform 0.2s;
+      }
+
+      .close-manager:hover {
+        transform: scale(1.2);
+      }
+
+      .manager-tabs {
+        display: flex;
+        gap: 2px;
+        padding: 8px;
+        background: var(--rosa-claro);
+        border-bottom: 1px solid var(--rosa-medio);
+      }
+
+      .manager-tab-btn {
+        flex: 1;
+        padding: 8px;
+        background: white;
+        border: 1px solid var(--rosa-medio);
+        border-radius: 6px 6px 0 0;
+        cursor: pointer;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #8d6e63;
+        transition: all 0.3s ease;
+        font-family: "Patrick Hand", cursive;
+      }
+
+      .manager-tab-btn.active {
+        background: white;
+        border-bottom-color: white;
+        color: var(--rosa-forte);
+        box-shadow: 0 -2px 5px rgba(240, 98, 146, 0.2);
+      }
+
+      .manager-tab-btn:hover {
+        background: var(--creme);
+      }
+
+      .manager-search {
+        padding: 8px;
+        border-bottom: 1px solid var(--rosa-medio);
+      }
+
+      .manager-search input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid var(--rosa-medio);
+        border-radius: 6px;
+        font-size: 0.85rem;
+        background: var(--creme);
+      }
+
+      .manager-search input:focus {
+        outline: none;
+        border-color: var(--rosa-forte);
+        box-shadow: 0 0 5px rgba(240, 98, 146, 0.3);
+      }
+
+      .manager-tab-content {
+        display: none;
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+      }
+
+      .manager-tab-content.active {
+        display: block;
+      }
+
+      .manager-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .manager-item {
+        background: var(--creme);
+        border: 1px solid var(--rosa-medio);
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+        transition: all 0.2s ease;
+        animation: slideIn 0.3s ease;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .manager-item:hover {
+        background: white;
+        box-shadow: 0 2px 8px rgba(240, 98, 146, 0.2);
+      }
+
+      .manager-item-info {
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .manager-item-title {
+        font-weight: 600;
+        color: var(--rosa-forte);
+        font-size: 0.85rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .manager-item-subtitle {
+        font-size: 0.7rem;
+        color: #8d6e63;
+        margin-top: 2px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .manager-item-actions {
+        display: flex;
+        gap: 4px;
+      }
+
+      .manager-item-btn {
+        background: white;
+        border: 1px solid var(--rosa-medio);
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-size: 0.7rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .manager-item-btn:hover {
+        background: var(--rosa-claro);
+        border-color: var(--rosa-forte);
+      }
+
+      .manager-item-btn.delete {
+        border-color: #ffcdd2;
+        color: #c62828;
+      }
+
+      .manager-item-btn.delete:hover {
+        background: #ffcdd2;
+      }
+
+      .manager-item-btn.fav {
+        color: var(--rosa-forte);
+      }
+
+      .manager-item-btn.fav.active {
+        background: var(--rosa-claro);
+        border-color: var(--rosa-forte);
+      }
+
+      /* ========== RESPONSIVE PLAYER ========== */
+      @media (max-width: 600px) {
+        .music-toggle {
+          width: 50px;
+          height: 50px;
+          font-size: 1.5rem;
+        }
+
+        .music-manager-btn {
+          width: 50px;
+          height: 50px;
+          font-size: 1.5rem;
+          right: auto;
+          left: 20px;
+        }
+
+        .music-overlay {
+          right: auto;
+          left: 10px;
+          bottom: 90px;
+          max-width: calc(100vw - 20px);
+        }
+
+        .music-manager-modal {
+          width: 100%;
+          right: -100%;
+          border-left: none;
+          border-top: 2px solid var(--rosa-medio);
+        }
+
+        .manager-item-btn {
+          padding: 3px 6px;
+          font-size: 0.65rem;
+        }
+
+        .manager-item-title {
+          font-size: 0.8rem;
+        }
+
+        .manager-item-subtitle {
+          font-size: 0.65rem;
+        }
+      }
+
+      /* ========== RESPONSIVE ========== */
+      @media (max-width: 768px) {
+        .carta {
+          padding: 25px 20px;
+          font-size: 1.1rem;
+          line-height: 1.9em;
+          background-size: 100% 1.9em;
+        }
+
+        .carta::before {
+          left: 20px;
+        }
+
+        .hero h1 {
+          font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        .section-title {
+          font-size: clamp(1.8rem, 4vw, 2.5rem);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .gift-box {
+          width: 240px;
+          height: 200px;
+        }
+
+        .gift-lid {
+          width: 190px;
+          height: 46px;
+          top: 30px;
+        }
+
+        .gift-base {
+          width: 190px;
+          height: 118px;
+          bottom: 26px;
+        }
+
+        .gift-message {
+          font-size: 1.2rem;
+          bottom: 90px;
+        }
+
+        .carta {
+          padding: 20px 15px;
+          font-size: 1rem;
+          line-height: 1.8em;
+          background-size: 100% 1.8em;
+          max-width: 100%;
+          margin: 0 10px;
+        }
+
+        .carta::before {
+          left: 15px;
+        }
+
+        .scrapbook-frame {
+          max-width: 260px;
+        }
+
+        .scrapbook-frame .photo-placeholder {
+          width: 230px;
+          height: 230px;
+        }
+
+        .picnic-blanket {
+          width: 220px;
+          height: 160px;
+        }
+
+        .recortes-grid {
+          grid-template-columns: 1fr;
+          max-width: 300px;
+        }
+
+        section {
+          padding: 60px 15px;
+        }
+      }
+
+      /* Hello Kitty-inspired decorative bow */
+      .bow {
+        display: inline-block;
+        position: relative;
+        width: 40px;
+        height: 20px;
+      }
+
+      .bow::before,
+      .bow::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        background: var(--rosa-forte);
+        border-radius: 50% 50% 50% 0;
+      }
+
+      .bow::before {
+        left: 0;
+        transform: rotate(-45deg);
+      }
+
+      .bow::after {
+        right: 0;
+        transform: rotate(45deg);
+      }
+
+      .kitty-divider {
+        text-align: center;
+        font-size: 1.5rem;
+        padding: 10px;
+        opacity: 0.4;
+        letter-spacing: 15px;
+      }
+
+      /* ========== GALERIA DE FOTOS ========== */
+      .galeria-section {
+        background: linear-gradient(
+          180deg,
+          var(--creme) 0%,
+          var(--bege) 50%,
+          var(--creme) 100%
+        );
+      }
+
+      .galeria-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        max-width: 750px;
+        margin: 0 auto;
+      }
+
+      .galeria-item {
+        background: white;
+        padding: 10px 10px 35px 10px;
+        border-radius: 3px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        transition:
+          transform 0.4s ease,
+          box-shadow 0.4s ease;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .galeria-item:nth-child(odd) {
+        transform: rotate(-1.5deg);
+      }
+
+      .galeria-item:nth-child(even) {
+        transform: rotate(1.5deg);
+      }
+
+      .galeria-item:hover {
+        transform: rotate(0deg) scale(1.05);
+        box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
+        z-index: 2;
+      }
+
+      .galeria-item img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 2px;
+        display: block;
+      }
+
+      .galeria-item::after {
+        content: attr(data-legenda);
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Caveat", cursive;
+        font-size: 1rem;
+        color: var(--rosa-forte);
+        white-space: nowrap;
+      }
+
+      /* Lightbox */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .lightbox.active {
+        display: flex;
+      }
+
+      .lightbox img {
+        max-width: 90vw;
+        max-height: 90vh;
+        border-radius: 8px;
+        box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 2.5rem;
+        color: white;
+        cursor: pointer;
+        font-family: "Quicksand", sans-serif;
+        z-index: 2001;
+      }
+
+      @media (max-width: 600px) {
+        .galeria-grid {
+          grid-template-columns: 1fr;
+          max-width: 300px;
+        }
+
+        .galeria-item img {
+          height: 220px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ========== ENVELOPE INTRO ========== -->
+    <div class="envelope-intro" id="envelope" onclick="openEnvelope()">
+      <div class="gift-intro-icon">💝</div>
+      <div class="gift-box">
+        <div class="gift-lid"></div>
+        <div class="gift-base">
+          <div class="gift-ribbon-v"></div>
+          <div class="gift-ribbon-h"></div>
+        </div>
+        <div class="gift-glow"></div>
+        <div class="gift-message">feito com amor</div>
+      </div>
+      <p class="intro-text">toque para abrir seu presente</p>
+    </div>
+
+    <!-- ========== FLOATING PETALS ========== -->
+    <div class="floating-elements" id="petals"></div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="main-content">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-content fade-in">
+          <div class="kitty-hello">Um presente com amor</div>
+          <h1>Para Você,<br />Com Todo Meu Amor</h1>
+          <p class="subtitle">
+            Este cantinho foi feito com muito carinho, só pra você 🤍
+          </p>
+
+          <div class="scrapbook-frame">
+            <div class="tape tape-top-left"></div>
+            <div class="tape tape-top-right"></div>
+            <img
+              src="dados/juntos/WhatsApp Image 2026-04-01 at 19.54.03.jpeg"
+              alt="Nós dois"
+              style="
+                width: 280px;
+                height: 280px;
+                object-fit: cover;
+                border-radius: 2px;
+                transform: rotate(270deg);
+              "
+            />
+          </div>
+        </div>
+        <div class="scroll-indicator">↓ role para baixo com carinho ↓</div>
+      </section>
+
+      <div class="romantic-divider">♡ ♡ ♡</div>
+
+      <!-- CARTA -->
+      <section class="carta-section">
+        <h2 class="section-title fade-in">Uma cartinha pra você</h2>
+        <div class="carta fade-in">
+          <p>Meu amor,</p>
+          <p>
+            Hoje é o dia em que o mundo ganhou a pessoa mais especial que eu já
+            conheci. Cada dia ao seu lado é como abrir um livro novo — cheio de
+            surpresas, aprendizados e momentos que eu quero guardar pra sempre.
+          </p>
+          <p>
+            Você é feita de gentileza, de sorrisos tímidos que aquecem o
+            coração, de inteligência que me inspira e de um amor tão delicado
+            quanto as coisas lindas que suas mãos criam.
+          </p>
+          <p>
+            Obrigado por cada momento, por cada risada, por cada silêncio
+            confortável ao seu lado. Você é meu lugar favorito no mundo.
+          </p>
+          <p>
+            Que esse novo ano da sua vida traga tudo de mais bonito que você
+            merece — e olha que você merece o mundo inteiro. ♡
+          </p>
+          <p class="assinatura">
+            Com todo meu amor,<br />
+            seu amor que te admira muito 💌
+          </p>
+        </div>
+      </section>
+
+      <div class="romantic-divider">♡ ♡ ♡</div>
+
+      <!-- COISAS QUE AMO -->
+      <section class="qualidades-section">
+        <h2 class="section-title fade-in">Coisas que amo em você</h2>
+        <div class="recortes-grid">
+          <div class="recorte fade-in" style="--rotation: -2deg">
+            <span class="emoji">🌸</span>
+            <h3>Sua gentileza</h3>
+            <p>
+              Você trata o mundo com uma delicadeza que me encanta todos os dias
+            </p>
+          </div>
+          <div class="recorte fade-in" style="--rotation: 1.5deg">
+            <span class="emoji">📚</span>
+            <h3>Sua inteligência</h3>
+            <p>
+              Sua mente brilhante me inspira a querer saber mais e ser melhor
+            </p>
+          </div>
+          <div class="recorte fade-in" style="--rotation: -1deg">
+            <span class="emoji">🧶</span>
+            <h3>Suas mãos criadoras</h3>
+            <p>
+              Tudo que você toca vira arte — crochê, cartas, desenhos, tudo
+              lindo
+            </p>
+          </div>
+          <div class="recorte fade-in" style="--rotation: 2deg">
+            <span class="emoji">💕</span>
+            <h3>Seu amor</h3>
+            <p>
+              A forma como você ama é rara e preciosa, e eu me sinto sortudo
+            </p>
+          </div>
+          <div class="recorte fade-in" style="--rotation: -1.5deg">
+            <span class="emoji">🌙</span>
+            <h3>Seu jeitinho</h3>
+            <p>
+              Reservada, mas cheia de um mundo lindo por dentro que só eu
+              conheço
+            </p>
+          </div>
+          <div class="recorte fade-in" style="--rotation: 1deg">
+            <span class="emoji">✨</span>
+            <h3>Seu sorriso</h3>
+            <p>Um sorriso seu ilumina o meu dia inteiro, sem exagero</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="washi-tape washi-3"></div>
+
+      <!-- LIVROS -->
+      <section class="livros-section">
+        <h2 class="section-title fade-in">Nossa estante de histórias</h2>
+        <div class="bookshelf fade-in">
+          <div
+            class="book"
+            style="
+              height: 140px;
+              background: linear-gradient(180deg, #f48fb1, #e91e63);
+            "
+          >
+            Nosso 1° encontro
+          </div>
+          <div
+            class="book"
+            style="
+              height: 160px;
+              background: linear-gradient(180deg, #ce93d8, #9c27b0);
+            "
+          >
+            Risadas juntos
+          </div>
+          <div
+            class="book"
+            style="
+              height: 130px;
+              background: linear-gradient(180deg, #90caf9, #42a5f5);
+            "
+          >
+            Segredos nossos
+          </div>
+          <div
+            class="book"
+            style="
+              height: 170px;
+              background: linear-gradient(180deg, #a5d6a7, #66bb6a);
+            "
+          >
+            Aventuras
+          </div>
+          <div
+            class="book"
+            style="
+              height: 145px;
+              background: linear-gradient(180deg, #ffcc80, #ffa726);
+            "
+          >
+            Comidas gostosas
+          </div>
+          <div
+            class="book"
+            style="
+              height: 155px;
+              background: linear-gradient(180deg, #ef9a9a, #ef5350);
+            "
+          >
+            Abraços longos
+          </div>
+          <div
+            class="book"
+            style="
+              height: 135px;
+              background: linear-gradient(180deg, #b39ddb, #7e57c2);
+            "
+          >
+            Filmes juntos
+          </div>
+          <div
+            class="book"
+            style="
+              height: 165px;
+              background: linear-gradient(180deg, #80deea, #26c6da);
+            "
+          >
+            Planos futuros
+          </div>
+          <div
+            class="book"
+            style="
+              height: 150px;
+              background: linear-gradient(180deg, #f8bbd0, #ec407a);
+            "
+          >
+            Nosso amor ♡
+          </div>
+        </div>
+        <p class="livros-text fade-in">
+          Cada momento nosso é um capítulo lindo<br />
+          e eu quero escrever essa história pra sempre com você 📖✨
+        </p>
+      </section>
+
+      <div class="romantic-divider">♡ ♡ ♡</div>
+
+      <!-- PIQUENIQUE -->
+      <section class="piquenique-section">
+        <h2 class="section-title fade-in">Nosso piquenique dos sonhos</h2>
+        <div class="picnic-scene fade-in">
+          <div class="picnic-blanket">
+            <div class="picnic-items">
+              🧺 🥐 🍓 🧃<br />
+              📖 🌻 🍰 🫖
+            </div>
+          </div>
+          <p class="picnic-text">Um dia perfeito seria...</p>
+          <p class="picnic-description">
+            Uma toalha xadrez no parque, com uma cestinha cheia de coisas
+            gostosas 🥐 você lendo seu livro 📖 eu te admirando... o sol da
+            tarde, uma brisa suave, e nenhuma pressa no mundo 🌿
+            <br /><br />
+            (e claro, Hello Kitty na toalha! 🎀)
+          </p>
+        </div>
+      </section>
+
+      <div class="washi-tape washi-2"></div>
+
+      <!-- CROCHÊ -->
+      <section class="croche-section">
+        <h2 class="section-title fade-in">Feito à mão, com amor</h2>
+        <div class="croche-content fade-in">
+          <div class="yarn-ball">🧶</div>
+          <p class="croche-text">
+            Assim como você transforma linhas em arte,<br />
+            você transformou minha vida em algo lindo.<br /><br />
+            Cada ponto que você dá é cheio de carinho,<br />
+            cada carta que você escreve é cheia de amor,<br />
+            cada desenho seu carrega um pedacinho da sua alma.<br /><br />
+            Você é a pessoa mais especial que existe. 💜
+          </p>
+          <div class="crochet-pattern">
+            <span class="stitch" style="background: #f8bbd0">♡</span>
+            <span class="stitch" style="background: #e1bee7">♡</span>
+            <span class="stitch" style="background: #fff9c4">♡</span>
+            <span class="stitch" style="background: #b2dfdb">♡</span>
+            <span class="stitch" style="background: #f8bbd0">♡</span>
+            <span class="stitch" style="background: #e1bee7">♡</span>
+            <span class="stitch" style="background: #fff9c4">♡</span>
+            <span class="stitch" style="background: #b2dfdb">♡</span>
+            <span class="stitch" style="background: #f8bbd0">♡</span>
+            <span class="stitch" style="background: #e1bee7">♡</span>
+            <span class="stitch" style="background: #fff9c4">♡</span>
+            <span class="stitch" style="background: #b2dfdb">♡</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="washi-tape washi-3"></div>
+
+      <!-- GALERIA DE FOTOS -->
+      <section class="galeria-section">
+        <h2 class="section-title fade-in">Meu amor</h2>
+        <div class="galeria-grid">
+          <div
+            class="galeria-item fade-in"
+            data-legenda="linda demais"
+            onclick="openLightbox(this)"
+          >
+            <img
+              src="dados/amor/WhatsApp Image 2026-04-01 at 19.54.03 (1).jpeg"
+              alt="Meu amor"
+              loading="lazy"
+            />
+          </div>
+          <div
+            class="galeria-item fade-in"
+            data-legenda="perfeita"
+            onclick="openLightbox(this)"
+          >
+            <img
+              src="dados/amor/WhatsApp Image 2026-04-01 at 19.54.04.jpeg"
+              alt="Meu amor"
+              loading="lazy"
+            />
+          </div>
+          <div
+            class="galeria-item fade-in"
+            data-legenda="minha princesa"
+            onclick="openLightbox(this)"
+          >
+            <img
+              src="dados/amor/WhatsApp Image 2026-04-01 at 19.54.04 (1).jpeg"
+              alt="Meu amor"
+              loading="lazy"
+            />
+          </div>
+          <div
+            class="galeria-item fade-in"
+            data-legenda="maravilhosa"
+            onclick="openLightbox(this)"
+          >
+            <img
+              src="dados/amor/WhatsApp Image 2026-04-01 at 19.54.04 (2).jpeg"
+              alt="Meu amor"
+              loading="lazy"
+            />
+          </div>
+          <div
+            class="galeria-item fade-in"
+            data-legenda="meu mundo"
+            onclick="openLightbox(this)"
+          >
+            <img
+              src="dados/amor/WhatsApp Image 2026-04-01 at 19.54.05 (1).jpeg"
+              alt="Meu amor"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- LIGHTBOX -->
+      <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightboxImg" src="" alt="Foto ampliada" />
+      </div>
+
+      <!-- VALES -->
+      <section class="promessas-section">
+        <h2 class="section-title fade-in">Valinhos de amor</h2>
+        <div class="vales-grid">
+          <div class="vale fade-in">
+            <div class="vale-emoji">🎬</div>
+            <h3>Vale 1 Noite de Filme</h3>
+            <p>Com cobertor, pipoca e nenhuma interrupção</p>
+            <p class="validade">Validade: para sempre ♡</p>
+          </div>
+          <div class="vale fade-in">
+            <div class="vale-emoji">🧺</div>
+            <h3>Vale 1 Piquenique</h3>
+            <p>No parque, com tudo que você mais gosta</p>
+            <p class="validade">Validade: para sempre ♡</p>
+          </div>
+          <div class="vale fade-in">
+            <div class="vale-emoji">📚</div>
+            <h3>Vale 1 Livraria</h3>
+            <p>Passeio sem pressa e o livro que você escolher</p>
+            <p class="validade">Validade: para sempre ♡</p>
+          </div>
+          <div class="vale fade-in">
+            <div class="vale-emoji">🤗</div>
+            <h3>Vale Abraço Infinito</h3>
+            <p>Daqueles bem apertados e demorados</p>
+            <p class="validade">Validade: para sempre ♡</p>
+          </div>
+          <div class="vale fade-in">
+            <div class="vale-emoji">✉️</div>
+            <h3>Vale 1 Carta Surpresa</h3>
+            <p>Escrita à mão, com todo carinho do mundo</p>
+            <p class="validade">Validade: para sempre ♡</p>
+          </div>
+          <div class="vale fade-in">
+            <div class="vale-emoji">🌅</div>
+            <h3>Vale 1 Dia Inteiro Juntos</h3>
+            <p>Sem celular, sem pressa, só nós dois</p>
+            <p class="validade">Validade: para sempre ♡</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="washi-tape washi-1"></div>
+
+      <!-- FINAL -->
+      <section class="special-section">
+        <div class="fade-in">
+          <div class="big-heart">💖</div>
+          <h2>Você é o melhor capítulo<br />da minha história</h2>
+          <p class="message">
+            Que esse novo ano seja cheio de livros incríveis, tardes de crochê,
+            piqueniques no sol, cartas de amor, e que eu esteja ao seu lado em
+            cada momento.
+            <br /><br />
+            Te amo mais do que todas as palavras de todos os livros do mundo. 🤍
+          </p>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <div class="kitty-row">💌 ♡ 💌</div>
+        <p>Feito com amor, pra pessoa mais especial do mundo</p>
+        <p style="margin-top: 8px; font-size: 1rem; opacity: 0.6">
+          ~ seu para sempre ~
+        </p>
+      </div>
+    </div>
+
+    <!-- MUSIC PLAYER -->
+    <button class="music-toggle" id="musicToggle" title="Adicionar música">
+      🎵
+    </button>
+    <button
+      class="music-manager-btn"
+      id="musicManagerBtn"
+      title="Gerenciar músicas"
+    >
+      ⚙️
+    </button>
+    <div class="music-overlay" id="musicOverlay">
+      <h4>🎵 Música & Playlist</h4>
+
+      <!-- TABS DE NAVEGAÇÃO -->
+      <div class="music-tabs">
+        <button class="tab-btn active" data-tab="single">🎶 Música</button>
+        <button class="tab-btn" data-tab="playlist">📋 Playlist</button>
+      </div>
+
+      <!-- TAB: MÚSICA ÚNICA -->
+      <div class="tab-content active" data-tab="single">
+        <div class="music-saved">
+          <h5>🎵 Músicas Salvas:</h5>
+          <div id="musicSavedList" class="quick-list"></div>
+        </div>
+
+        <hr
+          style="
+            margin: 10px 0;
+            border: none;
+            border-top: 1px solid var(--rosa-medio);
+          "
+        />
+
+        <input
+          type="text"
+          id="musicUrl"
+          placeholder="Cole link do Spotify ou YouTube"
+        />
+        <button onclick="addMusicFromURL()">Adicionar 🎶</button>
+        <button onclick="toggleAudio()">▶️ Tocar</button>
+        <div class="music-info" id="musicInfo">Nenhuma música escolhida</div>
+      </div>
+
+      <!-- TAB: PLAYLIST -->
+      <div class="tab-content" data-tab="playlist">
+        <div class="playlist-quick-access">
+          <h5>Playlists Salvas:</h5>
+          <div id="playlistsQuickList" class="quick-list"></div>
+        </div>
+
+        <hr
+          style="
+            margin: 10px 0;
+            border: none;
+            border-top: 1px solid var(--rosa-medio);
+          "
+        />
+
+        <input
+          type="text"
+          id="playlistUrl"
+          placeholder="Cole link de álbum/playlist do Spotify"
+        />
+        <button onclick="loadPlaylist()">Carregar 📀</button>
+
+        <!-- EMBED DO SPOTIFY -->
+        <div
+          id="spotifyEmbed"
+          class="spotify-embed-container"
+          style="display: none"
+        >
+          <div id="spotifyEmbedContent"></div>
+        </div>
+
+        <!-- LISTA DE FAIXAS -->
+        <div id="tracksList" class="tracks-list" style="display: none">
+          <h5>Faixas Disponíveis:</h5>
+          <div id="tracksContainer"></div>
+        </div>
+
+        <div class="playlist-info" id="playlistInfo">
+          Nenhuma playlist carregada
+        </div>
+      </div>
+    </div>
+
+    <!-- MUSIC MANAGER MODAL -->
+    <div class="music-manager-modal" id="musicManagerModal">
+      <div class="music-manager-content">
+        <div class="music-manager-header">
+          <h3>🎵 Gerenciador de Música</h3>
+          <button class="close-manager" onclick="closeMusicManager()">✕</button>
+        </div>
+
+        <!-- MANAGER TABS -->
+        <div class="manager-tabs">
+          <button class="manager-tab-btn active" data-tab="musics">
+            🎶 Músicas
+          </button>
+          <button class="manager-tab-btn" data-tab="playlists">
+            📋 Playlists
+          </button>
+          <button class="manager-tab-btn" data-tab="settings">
+            ⚙️ Configurações
+          </button>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div class="manager-search">
+          <input
+            type="text"
+            id="managerSearchInput"
+            placeholder="🔍 Buscar..."
+          />
+        </div>
+
+        <!-- MUSICS TAB -->
+        <div class="manager-tab-content active" data-tab="musics">
+          <div id="musicsList" class="manager-list"></div>
+        </div>
+
+        <!-- PLAYLISTS TAB -->
+        <div class="manager-tab-content" data-tab="playlists">
+          <div id="playlistsList" class="manager-list"></div>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div class="manager-tab-content" data-tab="settings">
+          <div style="padding: 10px">
+            <h5>📥 Importar Dados</h5>
+            <input type="file" id="importFile" accept=".json" />
+            <button onclick="importMusicData()">Carregar JSON</button>
+
+            <hr style="margin: 15px 0" />
+
+            <h5>📤 Exportar Dados</h5>
+            <button onclick="exportMusicData()">Baixar JSON</button>
+
+            <hr style="margin: 15px 0" />
+
+            <h5>🗑️ Limpar Tudo</h5>
+            <button
+              onclick="clearAllData()"
+              style="background: #ffcdd2; color: #c62828"
+            >
+              Limpar Dados
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <audio id="audioPlayer" style="display: none"></audio>
+
+    <script>
+      // ========== OPEN INTRO GIFT ==========
+      function openEnvelope() {
+        const intro = document.getElementById("envelope");
+        if (
+          intro.classList.contains("opening") ||
+          intro.classList.contains("hidden")
+        ) {
+          return;
+        }
+
+        intro.classList.add("opening");
+
+        setTimeout(() => {
+          intro.classList.add("hidden");
+        }, 1200);
+      }
+
+      // ========== FLOATING PETALS ==========
+      function createPetals() {
+        const container = document.getElementById("petals");
+        const petals = ["🌸", "✿", "♡", "🎀", "⋆"];
+
+        for (let i = 0; i < 20; i++) {
+          const petal = document.createElement("div");
+          petal.classList.add("petal");
+          petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+          petal.style.left = Math.random() * 100 + "%";
+          petal.style.animationDuration = 8 + Math.random() * 12 + "s";
+          petal.style.animationDelay = Math.random() * 15 + "s";
+          petal.style.fontSize = 0.8 + Math.random() * 0.8 + "rem";
+          container.appendChild(petal);
+        }
+      }
+      createPetals();
+
+      // ========== SCROLL ANIMATIONS ==========
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document
+        .querySelectorAll(".fade-in")
+        .forEach((el) => observer.observe(el));
+
+      // ========== SPARKLE ON CLICK ==========
+      document.addEventListener("click", (e) => {
+        if (e.target.closest(".envelope-intro")) return;
+
+        for (let i = 0; i < 5; i++) {
+          const sparkle = document.createElement("div");
+          sparkle.textContent = ["✨", "💕", "🌸", "♡", "⭐"][
+            Math.floor(Math.random() * 5)
+          ];
+          sparkle.style.position = "fixed";
+          sparkle.style.left = e.clientX + (Math.random() - 0.5) * 40 + "px";
+          sparkle.style.top = e.clientY + (Math.random() - 0.5) * 40 + "px";
+          sparkle.style.pointerEvents = "none";
+          sparkle.style.zIndex = "9999";
+          sparkle.style.fontSize = 0.8 + Math.random() * 0.8 + "rem";
+          sparkle.style.transition = "all 1s ease";
+          sparkle.style.opacity = "1";
+          document.body.appendChild(sparkle);
+
+          requestAnimationFrame(() => {
+            sparkle.style.transform = `translateY(-${50 + Math.random() * 50}px) scale(0)`;
+            sparkle.style.opacity = "0";
+          });
+
+          setTimeout(() => sparkle.remove(), 1000);
+        }
+      });
+
+      // ========== MUSIC PLAYER ==========
+      const musicToggle = document.getElementById("musicToggle");
+      const musicOverlay = document.getElementById("musicOverlay");
+      const audioPlayer = document.getElementById("audioPlayer");
+      const musicUrl = document.getElementById("musicUrl");
+      const musicInfo = document.getElementById("musicInfo");
+
+      // ========== LOCALSTORAGE MANAGEMENT ==========
+      const STORAGE_KEY = "presente_musicas";
+
+      function getMusicStorage() {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data
+          ? JSON.parse(data)
+          : { musicas: [], playlists: [], favoritas: [] };
+      }
+
+      function saveMusicStorage(data) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      }
+
+      function addMusicItem(titulo, artista, url, tipo) {
+        const storage = getMusicStorage();
+        const newItem = {
+          id: Date.now(),
+          titulo,
+          artista,
+          url,
+          tipo,
+          data_adicionada: new Date().toLocaleDateString("pt-BR"),
+        };
+        storage.musicas.push(newItem);
+        saveMusicStorage(storage);
+        displaySavedMusic();
+        return newItem.id;
+      }
+
+      function addPlaylistItem(nome, url, tipo, descricao = "") {
+        const storage = getMusicStorage();
+        const newItem = {
+          id: Date.now(),
+          nome,
+          url,
+          tipo,
+          descricao,
+          data_adicionada: new Date().toLocaleDateString("pt-BR"),
+        };
+        storage.playlists.push(newItem);
+        saveMusicStorage(storage);
+        displaySavedPlaylists();
+        return newItem.id;
+      }
+
+      function removeMusicItem(id) {
+        const storage = getMusicStorage();
+        storage.musicas = storage.musicas.filter((m) => m.id !== id);
+        saveMusicStorage(storage);
+        displaySavedMusic();
+      }
+
+      function removePlaylistItem(id) {
+        const storage = getMusicStorage();
+        storage.playlists = storage.playlists.filter((p) => p.id !== id);
+        saveMusicStorage(storage);
+        displaySavedPlaylists();
+      }
+
+      function displaySavedMusic() {
+        const storage = getMusicStorage();
+        const container = document.getElementById("musicSavedList");
+
+        if (storage.musicas.length === 0) {
+          container.innerHTML =
+            '<small style="color: #ccc;">Nenhuma música salva</small>';
+          return;
+        }
+
+        container.innerHTML = storage.musicas
+          .map(
+            (musica) => `
+          <div class="quick-item">
+            <div class="quick-item-name" title="${musica.titulo} - ${musica.artista}">
+              ${musica.titulo} ${musica.artista ? "(" + musica.artista + ")" : ""}
+            </div>
+            <button class="quick-item-remove" onclick="removeMusicItem(${musica.id})">✕</button>
+          </div>
+        `,
+          )
+          .join("");
+      }
+
+      function displaySavedPlaylists() {
+        const storage = getMusicStorage();
+        const container = document.getElementById("playlistsQuickList");
+
+        if (storage.playlists.length === 0) {
+          container.innerHTML =
+            '<small style="color: #ccc;">Nenhuma playlist salva</small>';
+          return;
+        }
+
+        container.innerHTML = storage.playlists
+          .map(
+            (playlist) => `
+          <div class="quick-item">
+            <div class="quick-item-name" title="${playlist.nome}">
+              ${playlist.nome}
+            </div>
+            <button class="quick-item-remove" onclick="removePlaylistItem(${playlist.id})">✕</button>
+          </div>
+        `,
+          )
+          .join("");
+      }
+
+      function initializePage() {
+        displaySavedMusic();
+        displaySavedPlaylists();
+      }
+
+      // Initialize on page load
+      window.addEventListener("load", initializePage);
+
+      musicToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        musicOverlay.classList.toggle("visible");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (
+          !e.target.closest(".music-overlay") &&
+          !e.target.closest(".music-toggle")
+        ) {
+          musicOverlay.classList.remove("visible");
+        }
+      });
+
+      function extractSpotifyTrackId(url) {
+        const spotifyMatch = url.match(/track\/([a-zA-Z0-9]+)/);
+        if (spotifyMatch) {
+          return spotifyMatch[1];
+        }
+        return null;
+      }
+
+      function extractYouTubeId(url) {
+        const patterns = [
+          /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+          /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
+        ];
+        for (let pattern of patterns) {
+          const match = url.match(pattern);
+          if (match) return match[1];
+        }
+        return null;
+      }
+
+      function addMusicFromURL() {
+        const url = musicUrl.value.trim();
+
+        if (!url) {
+          musicInfo.textContent = "⚠️ Digite uma URL";
+          return;
+        }
+
+        const spotifyId = extractSpotifyTrackId(url);
+        const youtubeId = extractYouTubeId(url);
+
+        if (spotifyId) {
+          const spotifyUrl = `https://open.spotify.com/embed/track/${spotifyId}`;
+          musicInfo.innerHTML = `<strong>🎵 Spotify</strong><br>URL adicionada com sucesso!`;
+          audioPlayer.src = "";
+          window.spotifyTrackUrl = spotifyUrl;
+
+          // Save to localStorage
+          addMusicItem("Spotify Track", spotifyId, url, "spotify");
+          musicUrl.value = "";
+        } else if (youtubeId) {
+          const youtubeUrl = `https://www.youtube.com/embed/${youtubeId}`;
+          musicInfo.innerHTML = `<strong>▶️ YouTube</strong><br>URL adicionada com sucesso!`;
+          audioPlayer.src = "";
+          window.youtubeTrackUrl = youtubeUrl;
+
+          // Save to localStorage
+          addMusicItem("YouTube Video", youtubeId, url, "youtube");
+          musicUrl.value = "";
+        } else {
+          musicInfo.textContent = "❌ Link inválido";
+        }
+      }
+
+      function toggleAudio() {
+        if (audioPlayer.src && audioPlayer.src.startsWith("blob:")) {
+          if (audioPlayer.paused) {
+            audioPlayer.play();
+            musicToggle.classList.add("playing");
+          } else {
+            audioPlayer.pause();
+            musicToggle.classList.remove("playing");
+          }
+        } else {
+          musicInfo.textContent = "Abra o Spotify ou YouTube para tocar 🎶";
+        }
+      }
+
+      audioPlayer.addEventListener("play", () => {
+        musicToggle.classList.add("playing");
+      });
+
+      audioPlayer.addEventListener("pause", () => {
+        musicToggle.classList.remove("playing");
+      });
+
+      // ========== PLAYLIST SYSTEM ==========
+      // TAB SWITCHING
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const tabName = btn.dataset.tab;
+
+          // Remove active de todos
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((b) => b.classList.remove("active"));
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((c) => c.classList.remove("active"));
+
+          // Adiciona active no clicado
+          btn.classList.add("active");
+          document
+            .querySelector(`.tab-content[data-tab="${tabName}"]`)
+            .classList.add("active");
+        });
+      });
+
+      function extractSpotifyAlbumId(url) {
+        // Formatos: /album/, /playlist/, /intl-pt/album/, etc
+        const match = url.match(/(?:album|playlist)\/([a-zA-Z0-9]+)/);
+        return match ? match[1] : null;
+      }
+
+      function loadPlaylist() {
+        const url = document.getElementById("playlistUrl").value.trim();
+        const playlistInfo = document.getElementById("playlistInfo");
+        const spotifyEmbed = document.getElementById("spotifyEmbed");
+        const spotifyEmbedContent = document.getElementById(
+          "spotifyEmbedContent",
+        );
+        const tracksList = document.getElementById("tracksList");
+
+        if (!url) {
+          playlistInfo.textContent = "⚠️ Digite uma URL";
+          return;
+        }
+
+        const albumId = extractSpotifyAlbumId(url);
+
+        if (!albumId) {
+          playlistInfo.textContent = "❌ URL inválida";
+          return;
+        }
+
+        // Detect if it's album or playlist
+        const isPlaylist = url.includes("playlist");
+        const type = isPlaylist ? "playlist" : "album";
+
+        // Create Spotify Embed
+        const embedUrl = `https://open.spotify.com/embed/${type}/${albumId}`;
+
+        spotifyEmbedContent.innerHTML = `
+          <iframe src="${embedUrl}" width="100%" height="380" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        `;
+
+        spotifyEmbed.style.display = "block";
+
+        // Save to localStorage
+        const playlistName =
+          type === "playlist" ? `Playlist ${albumId}` : `Álbum ${albumId}`;
+        addPlaylistItem(playlistName, url, type, `${type} ID: ${albumId}`);
+
+        // Sample tracks for demo (Spotify Web API would be needed for real tracks)
+        const sampleTracks = [
+          { name: "Clique para tocar música 1", id: "1" },
+          { name: "Clique para tocar música 2", id: "2" },
+          { name: "Clique para tocar música 3", id: "3" },
+        ];
+
+        // Build tracks list
+        const tracksContainer = document.getElementById("tracksContainer");
+        tracksContainer.innerHTML = sampleTracks
+          .map(
+            (track, idx) => `
+          <div class="track-item" onclick="selectTrack(this, '${track.id}', '${track.name}')">
+            ${idx + 1}. ${track.name}
+          </div>
+        `,
+          )
+          .join("");
+
+        tracksList.style.display = "block";
+        playlistInfo.innerHTML = `
+          <strong>${type === "playlist" ? "📋 Playlist" : "💿 Álbum"}</strong><br/>
+          ${type === "playlist" ? "Playlist" : "Álbum"} carregado! ✅<br/>
+          <small>Clique em uma faixa ou use o player do Spotify</small>
+        `;
+
+        document.getElementById("playlistUrl").value = "";
+      }
+
+      function selectTrack(element, trackId, trackName) {
+        // Remove active de outros
+        document.querySelectorAll(".track-item").forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        // Adiciona active neste
+        element.classList.add("active");
+
+        // Update info
+        document.getElementById("musicInfo").textContent =
+          `▶️ Selecionado: ${trackName}`;
+      }
+
+      // ========== MUSIC MANAGER SYSTEM ==========
+      const musicManagerBtn = document.getElementById("musicManagerBtn");
+      const musicManagerModal = document.getElementById("musicManagerModal");
+      const managerSearchInput = document.getElementById("managerSearchInput");
+
+      musicManagerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        musicManagerModal.classList.toggle("visible");
+        if (musicManagerModal.classList.contains("visible")) {
+          displayManagerLists();
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (
+          !e.target.closest(".music-manager-modal") &&
+          !e.target.closest(".music-manager-btn")
+        ) {
+          musicManagerModal.classList.remove("visible");
+        }
+      });
+
+      // Manager tab switching
+      document.querySelectorAll(".manager-tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const tabName = btn.dataset.tab;
+
+          document
+            .querySelectorAll(".manager-tab-btn")
+            .forEach((b) => b.classList.remove("active"));
+          document
+            .querySelectorAll(".manager-tab-content")
+            .forEach((c) => c.classList.remove("active"));
+
+          btn.classList.add("active");
+          document
+            .querySelector(`.manager-tab-content[data-tab="${tabName}"]`)
+            .classList.add("active");
+        });
+      });
+
+      function closeMusicManager() {
+        musicManagerModal.classList.remove("visible");
+      }
+
+      function renderManagerMusicItem(musica) {
+        return `
+          <div class="manager-item">
+            <div class="manager-item-info">
+              <div class="manager-item-title">${musica.titulo}</div>
+              <div class="manager-item-subtitle">${musica.artista || "Sem artista"} • ${musica.tipo}</div>
+            </div>
+            <div class="manager-item-actions">
+              <button class="manager-item-btn fav ${isFavorite(musica.id, "musica") ? "active" : ""}" 
+                      onclick="toggleFavorite(${musica.id}, 'musica')">♡</button>
+              <button class="manager-item-btn" onclick="editMusicItem(${musica.id})">✏️</button>
+              <button class="manager-item-btn delete" onclick="removeMusicItem(${musica.id})">🗑️</button>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderManagerPlaylistItem(playlist) {
+        return `
+          <div class="manager-item">
+            <div class="manager-item-info">
+              <div class="manager-item-title">${playlist.nome}</div>
+              <div class="manager-item-subtitle">${playlist.tipo} • ${playlist.descricao || "Sem descrição"}</div>
+            </div>
+            <div class="manager-item-actions">
+              <button class="manager-item-btn fav ${isFavorite(playlist.id, "playlist") ? "active" : ""}"
+                      onclick="toggleFavorite(${playlist.id}, 'playlist')">♡</button>
+              <button class="manager-item-btn" onclick="editPlaylistItem(${playlist.id})">✏️</button>
+              <button class="manager-item-btn delete" onclick="removePlaylistItem(${playlist.id})">🗑️</button>
+            </div>
+          </div>
+        `;
+      }
+
+      function displayManagerLists() {
+        const storage = getMusicStorage();
+        const searchTerm = managerSearchInput.value.toLowerCase();
+
+        // Filter music
+        const filteredMusic = storage.musicas.filter(
+          (m) =>
+            m.titulo.toLowerCase().includes(searchTerm) ||
+            m.artista.toLowerCase().includes(searchTerm),
+        );
+
+        // Filter playlists
+        const filteredPlaylists = storage.playlists.filter((p) =>
+          p.nome.toLowerCase().includes(searchTerm),
+        );
+
+        const musicContainer = document.getElementById("musicsList");
+        const playlistContainer = document.getElementById("playlistsList");
+
+        musicContainer.innerHTML =
+          filteredMusic.length === 0
+            ? '<div style="text-align: center; color: #ccc; padding: 20px;">Nenhuma música encontrada</div>'
+            : filteredMusic.map((m) => renderManagerMusicItem(m)).join("");
+
+        playlistContainer.innerHTML =
+          filteredPlaylists.length === 0
+            ? '<div style="text-align: center; color: #ccc; padding: 20px;">Nenhuma playlist encontrada</div>'
+            : filteredPlaylists
+                .map((p) => renderManagerPlaylistItem(p))
+                .join("");
+      }
+
+      function isFavorite(id, type) {
+        const storage = getMusicStorage();
+        return storage.favoritas.some((f) => f.id === id && f.tipo === type);
+      }
+
+      function toggleFavorite(id, type) {
+        const storage = getMusicStorage();
+        const index = storage.favoritas.findIndex(
+          (f) => f.id === id && f.tipo === type,
+        );
+
+        if (index > -1) {
+          storage.favoritas.splice(index, 1);
+        } else {
+          storage.favoritas.push({
+            id,
+            tipo: type,
+            data_adicionada: new Date().toLocaleDateString("pt-BR"),
+          });
+        }
+
+        saveMusicStorage(storage);
+        displayManagerLists();
+      }
+
+      function editMusicItem(id) {
+        const storage = getMusicStorage();
+        const musica = storage.musicas.find((m) => m.id === id);
+        if (!musica) return;
+
+        const newTitulo = prompt("Novo título:", musica.titulo);
+        if (newTitulo === null) return;
+
+        const newArtista = prompt("Novo artista:", musica.artista);
+        if (newArtista === null) return;
+
+        musica.titulo = newTitulo;
+        musica.artista = newArtista;
+
+        saveMusicStorage(storage);
+        displaySavedMusic();
+        displayManagerLists();
+      }
+
+      function editPlaylistItem(id) {
+        const storage = getMusicStorage();
+        const playlist = storage.playlists.find((p) => p.id === id);
+        if (!playlist) return;
+
+        const newNome = prompt("Novo nome:", playlist.nome);
+        if (newNome === null) return;
+
+        playlist.nome = newNome;
+
+        saveMusicStorage(storage);
+        displaySavedPlaylists();
+        displayManagerLists();
+      }
+
+      function exportMusicData() {
+        const storage = getMusicStorage();
+        const json = JSON.stringify(storage, null, 2);
+        const blob = new Blob([json], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `musicas-${new Date().toLocaleDateString("pt-BR").replace(/\//g, "-")}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function importMusicData() {
+        const fileInput = document.getElementById("importFile");
+        if (!fileInput.files.length) {
+          alert("Selecione um arquivo JSON");
+          return;
+        }
+
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          try {
+            const data = JSON.parse(e.target.result);
+            if (data.musicas && data.playlists) {
+              // Merge or replace?
+              const confirm_merge = confirm(
+                "Deseja mesclar com dados existentes? (Sim = mesclar, Não = substituir)",
+              );
+
+              if (confirm_merge) {
+                const storage = getMusicStorage();
+                // Merge
+                storage.musicas.push(
+                  ...data.musicas.filter(
+                    (m) => !storage.musicas.some((sm) => sm.url === m.url),
+                  ),
+                );
+                storage.playlists.push(
+                  ...data.playlists.filter(
+                    (p) => !storage.playlists.some((sp) => sp.url === p.url),
+                  ),
+                );
+                saveMusicStorage(storage);
+              } else {
+                saveMusicStorage(data);
+              }
+
+              displaySavedMusic();
+              displaySavedPlaylists();
+              displayManagerLists();
+              alert("✅ Dados importados com sucesso!");
+              fileInput.value = "";
+            } else {
+              alert("⚠️ Formato de arquivo inválido");
+            }
+          } catch (error) {
+            alert("❌ Erro ao ler arquivo: " + error.message);
+          }
+        };
+
+        reader.readAsText(file);
+      }
+
+      function clearAllData() {
+        if (
+          confirm(
+            "⚠️ Tem certeza? Isso vai deletar TODAS as músicas e playlists!",
+          )
+        ) {
+          if (confirm("🚨 ÚLTIMA CONFIRMAÇÃO: Deseja mesmo limpar tudo?")) {
+            localStorage.removeItem(STORAGE_KEY);
+            displaySavedMusic();
+            displaySavedPlaylists();
+            displayManagerLists();
+            alert("✅ Todos os dados foram removidos");
+          }
+        }
+      }
+
+      managerSearchInput.addEventListener("input", () => {
+        displayManagerLists();
+      });
+
+      // ========== LIGHTBOX GALERIA ==========
+      function openLightbox(item) {
+        const img = item.querySelector("img");
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightboxImg");
+        lightboxImg.src = img.src;
+        lightbox.classList.add("active");
+      }
+
+      function closeLightbox() {
+        document.getElementById("lightbox").classList.remove("active");
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLightbox();
+      });
+    </script>
+  </body>
+</html>
